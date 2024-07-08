@@ -24,6 +24,7 @@ public class Daftar extends javax.swing.JFrame {
     
     public void TampilkanData(){
     DftTbModel_pendaftaran = new DefaultTableModel();
+    DftTbModel_pendaftaran.addColumn("ID");
     DftTbModel_pendaftaran.addColumn("Nama");
     DftTbModel_pendaftaran.addColumn("NISN");
     DftTbModel_pendaftaran.addColumn("Asal Sekolah");
@@ -40,6 +41,7 @@ public class Daftar extends javax.swing.JFrame {
         java.sql.ResultSet res = stmt.executeQuery(SQL);
         while (res.next()) {
             DftTbModel_pendaftaran.addRow(new Object[]{
+                res.getString("ID"),
                 res.getString("nama"),
                 res.getString("nisn"),
                 res.getString("sekolah"),
