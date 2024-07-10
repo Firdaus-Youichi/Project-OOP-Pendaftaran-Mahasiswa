@@ -19,7 +19,7 @@ import java.sql.SQLException;
  */
 public class userData {
     public boolean insertUser(User user) {
-        String sql = "INSERT INTO users (ID, username, password) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO admin (ID, username, password) VALUES (?, ?, ?)";
 
         try (Connection conn = koneksi.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -37,7 +37,7 @@ public class userData {
     }
 
     public boolean validateUser(int ID, String username, String password) {
-        String sql = "SELECT * FROM daftar WHERE ID = ? AND username = ? AND password = ?";
+        String sql = "SELECT * FROM admin WHERE ID = ? AND username = ? AND password = ?";
 
         try (Connection conn = koneksi.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {

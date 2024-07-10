@@ -196,13 +196,10 @@ public class Login extends javax.swing.JFrame {
         } else {
             userData userData = new userData();
             boolean validUser = userData.validateUser(id, username, password);
-            
-            daftarUser value = new daftarUser();
-            value.TampilkanData(id);
 
             if (validUser) {
                 JOptionPane.showMessageDialog(this, "Login successful");
-                new daftarUser().setVisible(true);
+                new daftarAdmin().setVisible(true);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Error", JOptionPane.ERROR_MESSAGE);

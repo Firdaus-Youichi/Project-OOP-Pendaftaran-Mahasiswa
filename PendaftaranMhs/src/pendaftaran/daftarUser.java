@@ -7,6 +7,7 @@ package pendaftaran;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JTextField;
+import pendaftaran.koneksi;
 
 
 /**
@@ -18,7 +19,9 @@ public class daftarUser extends javax.swing.JFrame {
     
    
     
-    public int TampilkanData(int id){
+
+    public daftarUser(int id) {
+    
     Connection conn = koneksi.getConnection();
     try {
         
@@ -47,21 +50,9 @@ public class daftarUser extends javax.swing.JFrame {
     } catch (SQLException e) {
         System.out.println(e.getMessage());
     }
-        return 0;
-}
+    }
     
-    public daftarUser() {
-        // Inisialisasi komponen GUI (contoh saja, sesuaikan dengan implementasi Anda)
-        TampilHasilID = new JTextField();
-        TampilHasil1 = new JTextField();
-        TampilHasil2 = new JTextField();
-        TampilHasil3 = new JTextField();
-        TampilHasil4 = new JTextField();
-        TampilHasil5 = new JTextField();
-        TampilHasil6 = new JTextField();
-        TampilHasil7 = new JTextField();
-
-        // Inisialisasi koneksi database
+    public daftarUser(){
         initComponents();
     }
 
