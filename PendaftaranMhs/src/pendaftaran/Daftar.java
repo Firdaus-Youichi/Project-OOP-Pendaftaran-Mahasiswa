@@ -19,58 +19,23 @@ import java.util.Date;
  * @author rendy
  */
 public class Daftar extends javax.swing.JFrame {
-    private DefaultTableModel DftTbModel_pendaftaran;
-    private String SQL;
+  
     
-    public void TampilkanData(){
-    DftTbModel_pendaftaran = new DefaultTableModel();
-    DftTbModel_pendaftaran.addColumn("ID");
-    DftTbModel_pendaftaran.addColumn("Nama");
-    DftTbModel_pendaftaran.addColumn("NISN");
-    DftTbModel_pendaftaran.addColumn("Asal Sekolah");
-    DftTbModel_pendaftaran.addColumn("Nomor Telepon");
-    DftTbModel_pendaftaran.addColumn("Alamat");
-    DftTbModel_pendaftaran.addColumn("Tanggal Lahir");
-    DftTbModel_pendaftaran.addColumn("Jenis Kelamin");
-
-    tbMahasiswa.setModel (DftTbModel_pendaftaran);
-    Connection conn = koneksi.getConnection();
-    try {
-        java.sql.Statement stmt = conn.createStatement();
-        SQL = "SELECT * FROM daftar";
-        java.sql.ResultSet res = stmt.executeQuery(SQL);
-        while (res.next()) {
-            DftTbModel_pendaftaran.addRow(new Object[]{
-                res.getString("ID"),
-                res.getString("nama"),
-                res.getString("nisn"),
-                res.getString("sekolah"),
-                res.getString("telp"),
-                res.getString("alamat"),
-                res.getString("lahir"),
-                res.getString("kelamin")
-            });
-        }
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
-    }
-}
 
 
-        private void kosong()
-    {
+        private void kosong() {
         txtNama.setText("");
         txtNisn.setText("");
         txtAsal.setText("");
         txtTelp.setText("");
         txtAlamat.setText("");
+        txtUsername.setText("");
     }
 
 
 
     public Daftar() {
         initComponents();
-        this.TampilkanData();
     }
 
     /**
@@ -98,13 +63,16 @@ public class Daftar extends javax.swing.JFrame {
         txtTelp = new javax.swing.JTextField();
         txtAlamat = new javax.swing.JTextField();
         cbKelamin = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbMahasiswa = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         btSimpan = new javax.swing.JButton();
-        btHapus = new javax.swing.JButton();
         btTutup = new javax.swing.JButton();
         dcLahir = new com.toedter.calendar.JDateChooser();
+        txtUsername = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        txtPassword2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,39 +141,13 @@ public class Daftar extends javax.swing.JFrame {
             }
         });
 
-        tbMahasiswa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nama", "NISN", "Asal Sekolah", "Nomor Telepon", "Alamat", "Jenis Kelamin"
-            }
-        ));
-        tbMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbMahasiswaMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tbMahasiswa);
-
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         btSimpan.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        btSimpan.setText("Save");
+        btSimpan.setText("Save & Register");
         btSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSimpanActionPerformed(evt);
-            }
-        });
-
-        btHapus.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        btHapus.setText("Delete");
-        btHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btHapusActionPerformed(evt);
             }
         });
 
@@ -224,7 +166,6 @@ public class Daftar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btHapus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                     .addComponent(btSimpan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btTutup, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(14, 14, 14))
@@ -232,22 +173,47 @@ public class Daftar extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSimpan)
                 .addGap(18, 18, 18)
-                .addComponent(btHapus)
-                .addGap(18, 18, 18)
                 .addComponent(btTutup)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
+
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel9.setText("Username");
+
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel10.setText("Password");
+
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel11.setText("Password Konfirmasi");
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
+        txtPassword2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassword2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,32 +237,43 @@ public class Daftar extends javax.swing.JFrame {
                                             .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtAsal, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtNisn, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(138, 138, 138)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(cbKelamin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(dcLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(dcLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(22, 22, 22)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cbKelamin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 24, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(169, 169, 169))
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel9))))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(txtPassword)
+                            .addComponent(txtPassword2, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -316,8 +293,8 @@ public class Daftar extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(txtTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -329,9 +306,22 @@ public class Daftar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cbKelamin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -374,18 +364,21 @@ public class Daftar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAlamatActionPerformed
 
     private void btSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSimpanActionPerformed
-  try {
+    try {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String lahir = dateFormat.format(dcLahir.getDate());
+        String password = new String(txtPassword.getPassword());
         
-        String sql = "INSERT INTO daftar (nama, nisn, sekolah, telp, alamat, lahir, kelamin) VALUES ('" 
+        String sql = "INSERT INTO daftar (nama, nisn, sekolah, telp, alamat, lahir, kelamin, username, password) VALUES ('" 
                      + txtNama.getText() + "', '" 
                      + txtNisn.getText() + "', '" 
                      + txtAsal.getText() + "', '" 
                      + txtTelp.getText() + "', '" 
                      + txtAlamat.getText() + "', '" 
                      + lahir + "', '" 
-                     + cbKelamin.getSelectedItem() + "')";
+                     + cbKelamin.getSelectedItem() + "', '"
+                     + txtUsername.getText() + "', '"
+                     + password + "')";
                      
         Connection conn = koneksi.getConnection();
         java.sql.PreparedStatement pst = conn.prepareStatement(sql);
@@ -394,57 +387,39 @@ public class Daftar extends javax.swing.JFrame {
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, e.getMessage());
     } 
-    TampilkanData();
     kosong();
-
+    
+    
     }//GEN-LAST:event_btSimpanActionPerformed
-
-    private void btHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHapusActionPerformed
-    try {
-        String sql = "DELETE FROM daftar WHERE nama = ?";
-        Connection conn = koneksi.getConnection();
-        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-        pst.setString(1, txtNama.getText());
-        pst.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, e.getMessage());
-    } 
-    TampilkanData();
-    kosong();
-    }//GEN-LAST:event_btHapusActionPerformed
 
     private void cbKelaminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKelaminActionPerformed
         String selectedValue = cbKelamin.getSelectedItem().toString();
     }//GEN-LAST:event_cbKelaminActionPerformed
 
-    private void tbMahasiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMahasiswaMouseClicked
-        int baris = tbMahasiswa.rowAtPoint(evt.getPoint());
-        String Nama = tbMahasiswa.getValueAt(baris, 0).toString();
-        txtNama.setText(Nama);
-        String Nisn = tbMahasiswa.getValueAt(baris, 1).toString();
-        txtNisn.setText(Nisn);
-        String Asal = tbMahasiswa.getValueAt(baris, 2).toString();
-        txtAsal.setText(Asal);
-        String Telp = tbMahasiswa.getValueAt(baris, 3).toString();
-        txtTelp.setText(Telp);
-        String Alamat = tbMahasiswa.getValueAt(baris, 4).toString();
-        txtAlamat.setText(Alamat);
-        String Lahir = tbMahasiswa.getValueAt(baris, 5).toString();
-    try {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateLahir = dateFormat.parse(Lahir);
-        dcLahir.setDate(dateLahir);
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
-        String Kelamin = tbMahasiswa.getValueAt(baris, 6).toString();
-        cbKelamin.setSelectedItem(Kelamin);
-    }//GEN-LAST:event_tbMahasiswaMouseClicked
-
     private void btTutupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTutupActionPerformed
         this.dispose();
     }//GEN-LAST:event_btTutupActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        String password = new String(txtPassword.getPassword());
+            if (password.length() < 6) {
+                JOptionPane.showMessageDialog(this, "Password harus memiliki minimal 6 karakter.");
+                txtPassword.setText("");
+            }
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void txtPassword2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassword2ActionPerformed
+        String password = new String(txtPassword.getPassword());
+        String konfirmasi = new String(txtPassword2.getPassword());
+            if (!password.equals(konfirmasi)) {
+                JOptionPane.showMessageDialog(this, "Konfirmasi password tidak cocok.");
+                txtPassword.setText("");
+            }
+    }//GEN-LAST:event_txtPassword2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -482,12 +457,13 @@ public class Daftar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btHapus;
     private javax.swing.JButton btSimpan;
     private javax.swing.JButton btTutup;
     private javax.swing.JComboBox<String> cbKelamin;
     private com.toedter.calendar.JDateChooser dcLahir;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -495,15 +471,17 @@ public class Daftar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tbMahasiswa;
     private javax.swing.JTextField txtAlamat;
     private javax.swing.JTextField txtAsal;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtNisn;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtPassword2;
     private javax.swing.JTextField txtTelp;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

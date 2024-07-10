@@ -7,21 +7,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 /**
  *
- * @author rendy
+ * @author azriel17
  */
 public class koneksi {
-    public static Connection getConnection(){
+      public static Connection getConnection() {
         Connection Koneksi = null;
         String url = "jdbc:mysql://localhost/db_pendaftaran";
         String user = "root";
         String password = "";
         try {
             Koneksi = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return Koneksi;
     }
+    
 }
