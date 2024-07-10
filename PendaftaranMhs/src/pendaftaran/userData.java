@@ -18,7 +18,7 @@ import java.sql.SQLException;
  * @author azriel17
  */
 public class userData {
-    public boolean insertUser(User user) {
+    public boolean insertAdmin(User user) {
         String sql = "INSERT INTO admin (ID, username, password) VALUES (?, ?, ?)";
 
         try (Connection conn = koneksi.getConnection();
@@ -36,8 +36,44 @@ public class userData {
         return false;
     }
 
-    public boolean validateUser(int ID, String username, String password) {
+    public boolean validateAdmin(int ID, String username, String password) {
         String sql = "SELECT * FROM admin WHERE ID = ? AND username = ? AND password = ?";
+
+        try (Connection conn = koneksi.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, ID);
+            pstmt.setString(2, username);
+            pstmt.setString(3, password);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+    
+    public boolean insertUser(User user) {
+        String sql = "INSERT INTO daftar (ID, username, password) VALUES (?, ?, ?)";
+
+        try (Connection conn = koneksi.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, user.getID());
+            pstmt.setString(2, user.getUsername());
+            pstmt.setString(3, user.getPassword());
+            
+            int rowsInserted = pstmt.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+        return false;
+    }
+
+    public boolean validateUser(int ID, String username, String password) {
+        String sql = "SELECT * FROM daftar WHERE ID = ? AND username = ? AND password = ?";
 
         try (Connection conn = koneksi.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
